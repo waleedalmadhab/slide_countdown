@@ -13,7 +13,7 @@ class SlideCountdown extends StatefulWidget {
     Key? key,
     required this.duration,
     this.textStyle =
-        const TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold),
+    const TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold),
     this.separatorStyle,
     this.icon,
     this.suffixIcon,
@@ -194,7 +194,7 @@ class _SlideCountdownState extends State<SlideCountdown> with CountdownMixin {
     if (!disposed) {
       try {
         _streamDuration.durationLeft.listen(
-          (duration) {
+              (duration) {
             _notifiyDuration.streamDuration(duration);
             updateValue(duration);
           },
@@ -265,8 +265,9 @@ class _SlideCountdownState extends State<SlideCountdown> with CountdownMixin {
     );
 
     final minutes = DigitItem(
-      firstDigit: minutesFirstDigitNotifier,
-      secondDigit: minutesSecondDigitNotifier,
+      firstDigit: minutesSecondDigitNotifier,
+      //minutesSecondDigitNotifier
+      secondDigit: minutesFirstDigitNotifier,
       textStyle: widget.textStyle,
       separatorStyle: widget.separatorStyle ?? widget.textStyle,
       slideDirection: widget.slideDirection,
@@ -283,8 +284,11 @@ class _SlideCountdownState extends State<SlideCountdown> with CountdownMixin {
     );
 
     final seconds = DigitItem(
-      firstDigit: secondsFirstDigitNotifier,
-      secondDigit: secondsSecondDigitNotifier,
+      //firstDigit: secondsFirstDigitNotifier,
+      firstDigit: secondsSecondDigitNotifier,
+
+      secondDigit: secondsFirstDigitNotifier,
+      //  secondDigit: secondsSecondDigitNotifier,
       textStyle: widget.textStyle,
       separatorStyle: widget.separatorStyle ?? widget.textStyle,
       slideDirection: widget.slideDirection,
@@ -305,22 +309,22 @@ class _SlideCountdownState extends State<SlideCountdown> with CountdownMixin {
       valueListenable: _notifiyDuration,
       builder: (BuildContext context, Duration duration, Widget? child) {
         final daysWidget =
-            showWidget(duration.inDays, widget.showZeroValue) && widget.withDays
-                ? days
-                : const SizedBox.shrink();
+        showWidget(duration.inDays, widget.showZeroValue) && widget.withDays
+            ? days
+            : const SizedBox.shrink();
         final hoursWidget = showWidget(duration.inHours, widget.showZeroValue)
             ? hours
             : const SizedBox.shrink();
 
         final minutesWidget =
-            showWidget(duration.inMinutes, widget.showZeroValue)
-                ? minutes
-                : const SizedBox.shrink();
+        showWidget(duration.inMinutes, widget.showZeroValue)
+            ? minutes
+            : const SizedBox.shrink();
 
         final secondsWidget =
-            showWidget(duration.inSeconds, widget.showZeroValue)
-                ? seconds
-                : const SizedBox.shrink();
+        showWidget(duration.inSeconds, widget.showZeroValue)
+            ? seconds
+            : const SizedBox.shrink();
 
         final child = Padding(
           padding: widget.padding,
@@ -328,21 +332,21 @@ class _SlideCountdownState extends State<SlideCountdown> with CountdownMixin {
             mainAxisSize: MainAxisSize.min,
             children: widget.textDirection.isRtl
                 ? [
-                    suffixIcon,
-                    secondsWidget,
-                    minutesWidget,
-                    hoursWidget,
-                    daysWidget,
-                    leadingIcon,
-                  ]
+              suffixIcon,
+              secondsWidget,
+              minutesWidget,
+              hoursWidget,
+              daysWidget,
+              leadingIcon,
+            ]
                 : [
-                    leadingIcon,
-                    daysWidget,
-                    hoursWidget,
-                    minutesWidget,
-                    secondsWidget,
-                    suffixIcon,
-                  ],
+              leadingIcon,
+              daysWidget,
+              hoursWidget,
+              minutesWidget,
+              secondsWidget,
+              suffixIcon,
+            ],
           ),
         );
         return DecoratedBox(
