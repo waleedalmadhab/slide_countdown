@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stream_duration/stream_duration.dart';
 import 'separated/separated.dart';
-
 import 'utils/countdown_mixin.dart';
 import 'utils/duration_title.dart';
 import 'utils/enum.dart';
